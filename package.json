@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "name": "Playwright",
   "version": "1.0.0",
   "main": "index.js",
@@ -8,4 +9,33 @@
     "@types/node": "^26.6.2"
   },
   "scripts": {}
+=======
+  "name": "portif-lio-automacao-com-typescript",
+  "version": "1.0.0",
+  "description": "Aulas praticas de automação com playwright com typescript",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/obetodecastro/Portif-lio-Automacao-com-TypeScript.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/obetodecastro/Portif-lio-Automacao-com-TypeScript/issues"
+  },
+  "homepage": "https://github.com/obetodecastro/Portif-lio-Automacao-com-TypeScript#readme",
+  "devDependencies": {
+    "tsx": "^4.23.13",
+    "typescript": "^7.0.2",
+    "vitest": "^5.0.0"
+  }
+>>>>>>> a6b4dc431a767cf062e8b2c1bfb60ec052d219a1
 }
