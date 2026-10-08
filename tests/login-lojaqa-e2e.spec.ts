@@ -4,171 +4,119 @@ const BASE_URL = 'https://alisonmelo.github.io/tioalison-pe-t4-fap26/projetos-ba
 
 test.describe('ato 1 - validar carregamento e visibilidade de elementos', async () => {
 
-    test('Validar titulo e carregamento da pagina', async ({ page }) => {
-        // NAVEGAR ATÉ A PÁGINA DE LOGIN
-        await page.goto(`${BASE_URL}/login.html`)
-        // VALIDAR TÍTULO
-        await expect(page).toHaveTitle(/LojaQA | Entrar/i);
-    });
-    test('Verificar exibicao dos campos do form de login', async ({ page }) => {
-        //NAVEGAR ATE PAGINA DE LOGIN
-        await page.goto(`${BASE_URL}/login.html`)
+  test('Validar titulo e carregamento da pagina', async ({ page }) => {
+    //navegar ate pagina de login
+    await page.goto(`${BASE_URL}/login.html`)
+    //validar titulo
+    await expect(page).toHaveTitle(/LojaQA | Entrar/i);
+  });
+  test('Verificar exibicao dos campos do form de login', async ({ page }) => {
 
-        //VALIDAR CAMPOS
-        await expect(page.locator('#email')).toBeVisible();
-        await expect(page.locator('#password')).toBeVisible();
-        await expect(page.locator('#loginBtn')).toBeVisible();
-        //VERIFICAR SE BOTÃO ESTÁ DESATIVADO
-        await expect(page.locator('#loginBtn')).toBeDisabled();
+    //navegar ate pagina de login
+    await page.goto(`${BASE_URL}/login.html`)
 
-    });
+    //validar campos
+    await expect(page.locator('#email')).toBeVisible();
+    await expect(page.locator('#password')).toBeVisible();
+    await expect(page.locator('#loginBtn')).toBeVisible();
+    //verificar se btn esta desativado
+    await expect(page.locator('#loginBtn')).toBeDisabled();
 
+  });
 
 });
 
-test.describe('ATO 2 - Caminho Feliz', () => {
-    test('Validar acesso e redirecionar ao painel', async ({ page }) => {
-        // NAVEGAR ATÉ A PÁGINA DE LOGIN
-        await page.goto(`${BASE_URL}/login.html`)
-        // PREENCHER CAMPOS UTILIZANDO O FILL()
-        await page.fill('#email', 'bdc@gmail.com');
-        await page.fill('#password', '12345678');
-        // VALIDAR BOTÃO ATIVO
-        await expect(page.locator('#loginBtn')).toBeEnabled();
-        // AÇÃO DE CLIQUE NO BOTÃO
-        await page.click('#loginBtn');
-        //VALIDAR O REDIRECIONAMENTO PARA A PÁGINA /PAINEL
-        await expect(page).toHaveURL(/painel\.html/);
-    })
+test.describe('ATO 2 - Caminho Feliz', ()=>{
+  test('validar acesso e redicionar ao painel',async({page})=>{
+    //navegar ate pagina de login
+    await page.goto(`${BASE_URL}/login.html`)
+    // preencher campoos utilizando o fill()
+    await page.fill('#email','zezo@pt.com');
+    await page.fill('#password', '123456789');
+    //Validar botao ativo
+    await expect(page.locator('#loginBtn')).toBeEnabled();
+    // Acao de clique no btn
+    await page.click('#loginBtn');
+    //validar o redirecioamento para a pagina /painel
+    await expect(page).toHaveURL(/painel\.html/);
+  })
 
-    test('Verificar botão login desativado quando email incorreto', async ({ page }) => {
-        // NAVEGAR ATÉ A PÁGINA DE LOGIN
-        await page.goto(`${BASE_URL}/login.html`)
-        // PREENCHER CAMPOS UTILIZANDO O FILL()
-        await page.fill('#email', 'email_sem formato');
-        await page.fill('#password', '123456789');
-        //VERIFICAR SE BOTÃO ESTÁ ATIVO
-        await expect(page.locator('#loginBtn')).toBeDisabled();
-    })
-        //CRIAR BLOCO DE TESTE ATO 3 PARA CRIAR USUARIOS DE CLIENTE E LOJISTA E 
-        //VALIDAR O FORMULARIO DE CADASTRO
-        //E O LOGIN DE CADA UM DELES
-test.describe('CRIAR CADASTRO CLIENTE', () => {
+  test('Verificar botão login desativado quando email incorreto', 
+    async ({ page }) => {
+ //navegar ate pagina de login
+    await page.goto(`${BASE_URL}/login.html`)
 
-    test('Criar Cadastros Cliente', async ({ page }) => {
+    // preencher campoos utilizando o fill()
+    await page.fill('#email','email_sem_formato');
+    await page.fill('#password', '123456789');
+    //Validar botao ativo
+    await expect(page.locator('#loginBtn')).toBeDisabled();
+  })
 
-        // NAVEGAR ATÉ A PÁGINA DE LOGIN
-        await page.goto(`${BASE_URL}/login.html`);
-
-        // CLICAR NO BOTÃO CRIAR CONTA
-        await page.getByRole('link', { name: 'Criar conta' }).click();
-
-        // VALIDAR CAMPOS
-        await expect(page.locator('#reg-name')).toBeVisible();
-        await expect(page.locator('#reg-email')).toBeVisible();
-        await expect(page.locator('#reg-password')).toBeVisible();
-
-        // VERIFICAR SE BOTÃO ESTÁ DESATIVADO
-        await expect(page.locator('#registerBtn')).toBeDisabled();
-
-        // PREENCHER CAMPOS
-        await page.fill('#reg-name', 'Onacilda Gleivane');
-        await page.fill('#reg-email', 'onaglei@gmail.com');
-        await page.fill('#reg-password', '12345678');
-
-        // VALIDAR BOTÃO ATIVO
-        await expect(page.locator('#registerBtn')).toBeEnabled();
-
-        // CLICAR NO BOTÃO
-        await page.click('#registerBtn');
-
-        // VALIDAR REDIRECIONAMENTO PARA O PAINEL
-        await expect(page).toHaveURL(/painel\.html/);
-    });
-});
-
-
-test.describe('LOGIN CLIENTE', () => {
-
-    test('Login Cliente', async ({ page }) => {
-
-        // NAVEGAR ATÉ A PÁGINA DE LOGIN
-        await page.goto(`${BASE_URL}/login.html`);
-
-        // PREENCHER CAMPOS
-        await page.fill('#email', 'onaglei@gmail.com');
-        await page.fill('#password', '12345678');
-
-        // VALIDAR BOTÃO ATIVO
-        await expect(page.locator('#loginBtn')).toBeEnabled();
-
-        // CLICAR NO BOTÃO
-        await page.click('#loginBtn');
-
-        // VALIDAR REDIRECIONAMENTO PARA O PAINEL
-        await expect(page).toHaveURL(/painel\.html/);
-    });
-});
-
-
-test.describe('CRIAR CADASTRO LOJISTA', () => {
-
-    test('Criar Cadastros Lojista', async ({ page }) => {
-
-        // NAVEGAR ATÉ A PÁGINA DE LOGIN
-        await page.goto(`${BASE_URL}/login.html`);
-
-        // CLICAR NO BOTÃO CRIAR CONTA
-        await page.getByRole('link', { name: 'Criar conta' }).click();
-
-        // VALIDAR CAMPOS
-        await expect(page.locator('#reg-name')).toBeVisible();
-        await expect(page.locator('#reg-email')).toBeVisible();
-        await expect(page.locator('#reg-password')).toBeVisible();
-        await expect(page.locator('#reg-role')).toBeVisible();
-
-        // VERIFICAR SE BOTÃO ESTÁ DESATIVADO
-        await expect(page.locator('#registerBtn')).toBeDisabled();
-
-        // PREENCHER CAMPOS
-        await page.fill('#reg-name', 'PAULA CARA DE PAU');
-        await page.fill('#reg-email', 'palsa@gmail.com');
-        await page.fill('#reg-password', '12345678');
-
-        // SELECIONAR TIPO DE CLIENTE: LOJISTA
-        await page.locator('#reg-role').selectOption('Lojista / vendedor');
-
-        // VALIDAR BOTÃO ATIVO
-        await expect(page.locator('#registerBtn')).toBeEnabled();
-
-        // CLICAR NO BOTÃO
-        await page.click('#registerBtn');
-
-        // VALIDAR REDIRECIONAMENTO PARA O PAINEL
-        await expect(page).toHaveURL(/painel\.html/);
-    });
-});
-
-
-test.describe('LOGIN LOJISTA', () => {
-
-    test('Login Lojista', async ({ page }) => {
-
-        // NAVEGAR ATÉ A PÁGINA DE LOGIN
-        await page.goto(`${BASE_URL}/login.html`);
-
-        // PREENCHER CAMPOS
-        await page.fill('#email', 'palsa@gmail.com');
-        await page.fill('#password', '12345678');
-
-        // VALIDAR BOTÃO ATIVO
-        await expect(page.locator('#loginBtn')).toBeEnabled();
-
-        // CLICAR NO BOTÃO
-        await page.click('#loginBtn');
-
-        // VALIDAR REDIRECIONAMENTO PARA O PAINEL
-        await expect(page).toHaveURL(/painel\.html/);
-    });
-});
 })
+
+test.describe('Ato 3 — Criar usuários e validar cadastro e login', () => {
+  // O Playwright vai rodar isso em um ambiente limpo ANTES de cada teste abaixo
+  test.beforeEach(async ({ page }) => {
+    // 1. Navega até a página
+    await page.goto(`${BASE_URL}/login.html`);
+    // 2. Clica no link para alternar para o formulário de cadastro
+    await page.locator('.login-links a').first().click();
+  });
+
+test('validar visibilidade dos campos do form de cadastro', async ({ page }) => {
+    await expect(page.locator('#reg-name')).toBeVisible();
+    await expect(page.locator('#reg-email')).toBeVisible();
+    await expect(page.locator('#reg-password')).toBeVisible();
+    await expect(page.locator('#reg-role')).toBeVisible();
+    await expect(page.locator('#registerBtn')).toBeVisible();
+  });
+
+  test('deve realizar cadastro e login de um usuário cliente', async ({ page }) => {
+    const randomEmail = `cliente_${Date.now()}@example.com`;
+    await page.fill('#reg-name', 'Cliente Teste');
+    await page.fill('#reg-email', randomEmail);
+    await page.fill('#reg-password', '123456789');
+    await page.selectOption('#reg-role', 'user');
+    
+    await expect(page.locator('#registerBtn')).toBeEnabled();
+    await page.click('#registerBtn');
+
+    await expect(page.locator('#email')).toBeVisible();
+    await expect(page.locator('#password')).toBeVisible();
+    await expect(page.locator('#loginBtn')).toBeVisible();
+
+    await page.fill('#email', randomEmail);
+    await page.fill('#password', '123456789');
+    await expect(page.locator('#loginBtn')).toBeEnabled();
+    await page.click('#loginBtn');
+    
+    await expect(page).toHaveURL(/painel\.html/);
+  });
+
+  test('deve revelar campo de loja ao selecionar perfil lojista, cadastrar e logar', async ({ page }) => {
+    const randomEmail = `lojista_${Date.now()}@example.com`;
+
+    await page.fill('#reg-name', 'Lojista Teste');
+    await page.fill('#reg-email', randomEmail);
+    await page.fill('#reg-password', 'SenhaForte123');
+    
+    await page.selectOption('#reg-role', 'seller');
+
+    const storeNameInput = page.locator('#reg-store-name');
+    await expect(storeNameInput).toBeVisible();
+    await page.fill('#reg-store-name', 'Loja do Alison');
+
+    await expect(page.locator('#registerBtn')).toBeEnabled();
+    await page.click('#registerBtn');
+
+    await expect(page.locator('#email')).toBeVisible();
+
+    await page.fill('#email', randomEmail);
+    await page.fill('#password', 'SenhaForte123');
+    await page.click('#loginBtn');
+
+    await expect(page).toHaveURL(/painel\.html/);
+  });
+
+});
